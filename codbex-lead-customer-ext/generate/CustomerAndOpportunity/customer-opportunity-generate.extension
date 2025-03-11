@@ -1,0 +1,5 @@
+{
+    "extensionPoint": "codbex-opportunities-custom-action",
+    "module": "codbex-lead-customer-ext/generate/CustomerAndOpportunity/customer-opportunity-generate.js",
+    "description": "Generate Opportunity From Lead Custom Action"
+}
