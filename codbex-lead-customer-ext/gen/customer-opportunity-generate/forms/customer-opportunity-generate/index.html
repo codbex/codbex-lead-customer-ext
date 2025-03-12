@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" ng-app="forms" ng-controller="FormController">
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="icon" sizes="any" href="data:;base64,iVBORw0KGgo=">
+		<title dg-view-title></title>
+		<script type="text/javascript" src="view.js"></script>
+		<script type="text/javascript" src="/services/js/resources-core/services/loader.js?id=ide-view-js"></script>
+		<link type="text/css" rel="stylesheet" href="/services/js/resources-core/services/loader.js?id=ide-view-css" />
+		<theme></theme>
+		<script type="text/javascript" src="controller.js"></script>
+	</head>
+
+	<body class="dg-vbox">
+		<fd-fieldset class="fd-margin--tiny" ng-form="forms.form">
+
+			<h5 fd-title header-size="4">Convert Lead to Opportunity</h5>
+			<fd-form-item horizontal="false">
+				<fd-form-label dg-colon="true" dg-required="true" for="opportunity-amount">Opportunity Amount</fd-form-label>
+				<fd-step-input dg-id="opportunity-amount" name="opportunity-amount" ng-model="model." dg-required="true" dg-min="0.0"
+					dg-max="-1.0" dg-step="1.0" state="{{ !forms.form['opportunity-amount'].$valid ? 'error' : '' }}" compact="false">
+				</fd-step-input>
+			</fd-form-item>
+			<fd-form-item horizontal="false">
+				<fd-form-label dg-colon="true" dg-required="true" for="opportunity-currency">Opportunity Currency</fd-form-label>
+				<fd-select dg-id="opportunity-currency" name="opportunity-currency" label-id="opportunity-currency" compact="false" ng-required="true" ng-model="model.">
+					<fd-option text="{{ option.label }}" value="option.value" ng-repeat="option in  track by $index"></fd-option>
+				</fd-select>
+			</fd-form-item>
+			<fd-form-item horizontal="false">
+				<fd-form-label dg-colon="true" dg-required="true" for="opportunity-type">Opportunity Type</fd-form-label>
+				<fd-select dg-id="opportunity-type" name="opportunity-type" label-id="opportunity-type" compact="false" ng-required="true" ng-model="model.">
+					<fd-option text="{{ option.label }}" value="option.value" ng-repeat="option in  track by $index"></fd-option>
+				</fd-select>
+			</fd-form-item>
+			<fd-form-item horizontal="false">
+				<fd-form-label dg-colon="true" dg-required="true" for="opportunity-priority">Opportunity Priority</fd-form-label>
+				<fd-select dg-id="opportunity-priority" name="opportunity-priority" label-id="opportunity-priority" compact="false" ng-required="true" ng-model="model.">
+					<fd-option text="{{ option.label }}" value="option.value" ng-repeat="option in  track by $index"></fd-option>
+				</fd-select>
+			</fd-form-item>
+			<fd-form-item horizontal="false">
+				<fd-form-label dg-colon="true" dg-required="true" for="opportunity-propability">Opportunity Propability</fd-form-label>
+				<fd-select dg-id="opportunity-propability" name="opportunity-propability" label-id="opportunity-propability" compact="false" ng-required="true" ng-model="model.">
+					<fd-option text="{{ option.label }}" value="option.value" ng-repeat="option in  track by $index"></fd-option>
+				</fd-select>
+			</fd-form-item>
+<div class=" dg-hbox dg-box--gap dg-box--stretch-items">
+			<div>
+				<fd-button class="dg-full-width" type="submit" dg-label="Convert" compact="false" dg-type="positive"></fd-button>
+			</div>
+			<div>
+				<fd-button class="dg-full-width" type="submit" dg-label="Cancel" compact="false" dg-type="negative"></fd-button>
+			</div>
+</div>
+
+		</fd-fieldset>
+
+	</body>
+
+</html>

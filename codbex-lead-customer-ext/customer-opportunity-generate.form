@@ -1,0 +1,109 @@
+{
+    "feeds": [],
+    "scripts": [],
+    "code": "",
+    "form": [
+        {
+            "controlId": "header",
+            "groupId": "fb-display",
+            "title": "Convert Lead to Opportunity",
+            "size": 3
+        },
+        {
+            "controlId": "input-number",
+            "groupId": "fb-controls",
+            "id": "opportunity-amount",
+            "label": "Opportunity Amount",
+            "horizontal": false,
+            "isCompact": false,
+            "placeholder": "Opportunity Amount...",
+            "model": "",
+            "required": true,
+            "minNum": 0,
+            "maxNum": -1,
+            "step": 1
+        },
+        {
+            "controlId": "input-select",
+            "groupId": "fb-controls",
+            "id": "opportunity-currency",
+            "label": "Opportunity Currency",
+            "horizontal": false,
+            "isCompact": false,
+            "staticData": false,
+            "model": "",
+            "options": "",
+            "optionLabel": "label",
+            "optionValue": "value",
+            "required": true
+        },
+        {
+            "controlId": "input-select",
+            "groupId": "fb-controls",
+            "id": "opportunity-type",
+            "label": "Opportunity Type",
+            "horizontal": false,
+            "isCompact": false,
+            "staticData": false,
+            "model": "",
+            "options": "",
+            "optionLabel": "label",
+            "optionValue": "value",
+            "required": true
+        },
+        {
+            "controlId": "input-select",
+            "groupId": "fb-controls",
+            "id": "opportunity-priority",
+            "label": "Opportunity Priority",
+            "horizontal": false,
+            "isCompact": false,
+            "staticData": false,
+            "model": "",
+            "options": "",
+            "optionLabel": "label",
+            "optionValue": "value",
+            "required": true
+        },
+        {
+            "controlId": "input-select",
+            "groupId": "fb-controls",
+            "id": "opportunity-propability",
+            "label": "Opportunity Propability",
+            "horizontal": false,
+            "isCompact": false,
+            "staticData": false,
+            "model": "",
+            "options": "",
+            "optionLabel": "label",
+            "optionValue": "value",
+            "required": true
+        },
+        {
+            "controlId": "container-hbox",
+            "groupId": "fb-containers",
+            "children": [
+                {
+                    "controlId": "button",
+                    "groupId": "fb-controls",
+                    "label": "Convert",
+                    "type": "positive",
+                    "sizeToText": false,
+                    "isSubmit": true,
+                    "isCompact": false,
+                    "callback": ""
+                },
+                {
+                    "controlId": "button",
+                    "groupId": "fb-controls",
+                    "label": "Cancel",
+                    "type": "negative",
+                    "sizeToText": false,
+                    "isSubmit": true,
+                    "isCompact": false,
+                    "callback": ""
+                }
+            ]
+        }
+    ]
+}
