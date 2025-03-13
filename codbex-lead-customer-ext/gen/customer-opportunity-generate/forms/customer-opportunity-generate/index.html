@@ -19,31 +19,31 @@
 			<h5 fd-title header-size="4">Convert Lead to Opportunity</h5>
 			<fd-form-item horizontal="false">
 				<fd-form-label dg-colon="true" dg-required="true" for="opportunity-amount">Opportunity Amount</fd-form-label>
-				<fd-step-input dg-id="opportunity-amount" name="opportunity-amount" ng-model="model." dg-required="true" dg-min="0.0"
-					dg-max="-1.0" dg-step="1.0" state="{{ !forms.form['opportunity-amount'].$valid ? 'error' : '' }}" compact="false">
+				<fd-step-input dg-id="opportunity-amount" name="opportunity-amount" ng-model="model.amount" dg-required="true" dg-min="0.0"
+					dg-max="1.0E11" dg-step="1.0" state="{{ !forms.form['opportunity-amount'].$valid ? 'error' : '' }}" compact="false">
 				</fd-step-input>
 			</fd-form-item>
 			<fd-form-item horizontal="false">
 				<fd-form-label dg-colon="true" dg-required="true" for="opportunity-currency">Opportunity Currency</fd-form-label>
-				<fd-select dg-id="opportunity-currency" name="opportunity-currency" label-id="opportunity-currency" compact="false" ng-required="true" ng-model="model.">
-					<fd-option text="{{ option.label }}" value="option.value" ng-repeat="option in  track by $index"></fd-option>
+				<fd-select dg-id="opportunity-currency" name="opportunity-currency" label-id="opportunity-currency" compact="false" ng-required="true" ng-model="model.currency">
+					<fd-option text="{{ option.Code }}" value="option.Id" ng-repeat="option in  track by $index"></fd-option>
 				</fd-select>
 			</fd-form-item>
 			<fd-form-item horizontal="false">
 				<fd-form-label dg-colon="true" dg-required="true" for="opportunity-type">Opportunity Type</fd-form-label>
-				<fd-select dg-id="opportunity-type" name="opportunity-type" label-id="opportunity-type" compact="false" ng-required="true" ng-model="model.">
+				<fd-select dg-id="opportunity-type" name="opportunity-type" label-id="opportunity-type" compact="false" ng-required="true" ng-model="model.opportunityType">
 					<fd-option text="{{ option.label }}" value="option.value" ng-repeat="option in  track by $index"></fd-option>
 				</fd-select>
 			</fd-form-item>
 			<fd-form-item horizontal="false">
 				<fd-form-label dg-colon="true" dg-required="true" for="opportunity-priority">Opportunity Priority</fd-form-label>
-				<fd-select dg-id="opportunity-priority" name="opportunity-priority" label-id="opportunity-priority" compact="false" ng-required="true" ng-model="model.">
+				<fd-select dg-id="opportunity-priority" name="opportunity-priority" label-id="opportunity-priority" compact="false" ng-required="true" ng-model="model.opportunityPriority">
 					<fd-option text="{{ option.label }}" value="option.value" ng-repeat="option in  track by $index"></fd-option>
 				</fd-select>
 			</fd-form-item>
 			<fd-form-item horizontal="false">
 				<fd-form-label dg-colon="true" dg-required="true" for="opportunity-propability">Opportunity Propability</fd-form-label>
-				<fd-select dg-id="opportunity-propability" name="opportunity-propability" label-id="opportunity-propability" compact="false" ng-required="true" ng-model="model.">
+				<fd-select dg-id="opportunity-propability" name="opportunity-propability" label-id="opportunity-propability" compact="false" ng-required="true" ng-model="model.opportunityProbability">
 					<fd-option text="{{ option.label }}" value="option.value" ng-repeat="option in  track by $index"></fd-option>
 				</fd-select>
 			</fd-form-item>

@@ -1,7 +1,7 @@
 {
     "feeds": [],
     "scripts": [],
-    "code": "",
+    "code": "const params = ViewParameters.get();\n\nconst leadDataUrl = \"/services/ts/codbex-lead-customer-ext/api/GenerateCustomerOpportunityService.ts/leadData/\" + params.id;\nconst currencyDataUrls = \"/services/ts/codbex-currencies/gen/codbex-currencies/api/Currencies/CurrencyService.ts/\";\nconst opportunityUrl = \"/services/ts/codbex-lead-customer-ext/api/GenerateCustomerOpportunityService.ts/opportunityFromLead\";\n\n$http.get(leadDataUrl)\n    .then(response => {\n        $scope.leadData = response.data;\n    })\n    .catch(function (error) {\n                console.error(\"Error fetching Lead data: \", error);\n    });\n\n$http.get(currencyDataUrls)\n    .then(response => {\n        $scope.currencyData = response.data;\n    })\n    .catch(function (error) {\n                console.error(\"Error fetching Currency data: \", error);\n    });\n\n",
     "form": [
         {
             "controlId": "header",
@@ -17,10 +17,10 @@
             "horizontal": false,
             "isCompact": false,
             "placeholder": "Opportunity Amount...",
-            "model": "",
+            "model": "amount",
             "required": true,
             "minNum": 0,
-            "maxNum": -1,
+            "maxNum": 100000000000,
             "step": 1
         },
         {
@@ -31,10 +31,10 @@
             "horizontal": false,
             "isCompact": false,
             "staticData": false,
-            "model": "",
+            "model": "currency",
             "options": "",
-            "optionLabel": "label",
-            "optionValue": "value",
+            "optionLabel": "Code",
+            "optionValue": "Id",
             "required": true
         },
         {
@@ -45,7 +45,7 @@
             "horizontal": false,
             "isCompact": false,
             "staticData": false,
-            "model": "",
+            "model": "opportunityType",
             "options": "",
             "optionLabel": "label",
             "optionValue": "value",
@@ -59,7 +59,7 @@
             "horizontal": false,
             "isCompact": false,
             "staticData": false,
-            "model": "",
+            "model": "opportunityPriority",
             "options": "",
             "optionLabel": "label",
             "optionValue": "value",
@@ -73,7 +73,7 @@
             "horizontal": false,
             "isCompact": false,
             "staticData": false,
-            "model": "",
+            "model": "opportunityProbability",
             "options": "",
             "optionLabel": "label",
             "optionValue": "value",

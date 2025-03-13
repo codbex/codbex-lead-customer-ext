@@ -1,8 +1,8 @@
 {
+  "fileName": "customer-opportunity-generate",
+  "genFolderName": "customer-opportunity-generate",
   "projectName": "codbex-lead-customer-ext",
   "workspaceName": "workspace",
   "filePath": "customer-opportunity-generate.form",
-  "templateId": "template-form-builder-angularjs/template/template.js",
-  "fileName": "customer-opportunity-generate",
-  "genFolderName": "customer-opportunity-generate"
+  "templateId": "template-form-builder-angularjs/template/template.js"
 }

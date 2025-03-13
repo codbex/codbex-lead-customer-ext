@@ -1,7 +1,7 @@
 const viewData = {
     id: 'opportunity-generate',
     label: 'Generate Opportunity',
-    link: '/services/web/codbex-lead-customer-ext/generate/CustomerAndOpportunity/customer-opportunity-generate.html',
+    link: '/services/web/codbex-lead-customer-ext/gen/customer-opportunity-generate/forms/customer-opportunity-generate/index.html',
     perspective: 'Lead',
     view: 'Lead',
     type: 'entity',
