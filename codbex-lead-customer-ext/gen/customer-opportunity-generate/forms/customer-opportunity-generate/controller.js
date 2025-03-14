@@ -9,9 +9,9 @@ formView.controller('FormController', ['$scope', '$http', function ($scope, $htt
     $scope.model = {};
     $scope.model.amount = 0;
     $scope.model.currency = '';
-    $scope.model.opportunityType = '';
-    $scope.model.opportunityPriority = '';
-    $scope.model.opportunityProbability = '';
+    $scope.model.type = '';
+    $scope.model.Priority = '';
+    $scope.model.Probability = '';
 
     const leadDataUrl = "/services/ts/codbex-lead-customer-ext/api/GenerateCustomerOpportunityService.ts/leadData/";
     const currencyDataUrls = "/services/ts/codbex-currencies/gen/codbex-currencies/api/Currencies/CurrencyService.ts/";
