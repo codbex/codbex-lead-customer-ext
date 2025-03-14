@@ -1,12 +1,7 @@
 {
     "feeds": [],
-    "scripts": [
-        {
-            "name": "module",
-            "url": "/services/ts/codbex-lead-customer-ext/js/customer-opportunity-generate-module.js"
-        }
-    ],
-    "code": "if (window.CustomModule) {\n    const params = window.CustomModule.getParams();\n    console.log(\"Received Params:\", params);\n}\n$scope.showDialog = true;\n\nconst leadDataUrl = \"/services/ts/codbex-lead-customer-ext/api/GenerateCustomerOpportunityService.ts/leadData/\" + params.id;\nconst currencyDataUrls = \"/services/ts/codbex-currencies/gen/codbex-currencies/api/Currencies/CurrencyService.ts/\";\nconst opportunityUrl = \"/services/ts/codbex-lead-customer-ext/api/GenerateCustomerOpportunityService.ts/opportunityFromLead\";\n\n$http.get(leadDataUrl)\n    .then(response => {\n        $scope.leadData = response.data;\n    })\n    .catch(function (error) {\n                console.error(\"Error fetching Lead data: \", error);\n    });\n\n$http.get(currencyDataUrls)\n    .then(response => {\n        $scope.currencyData = response.data;\n    })\n    .catch(function (error) {\n                console.error(\"Error fetching Currency data: \", error);\n    });\n\n$scope.closeDialog = () => {\n    console.log(\"test\");\n    $scope.showDialog = false;\n    messageHub.closeDialogWindow(\"opportunity-generate\");\n};",
+    "scripts": [],
+    "code": "const leadDataUrl = \"/services/ts/codbex-lead-customer-ext/api/GenerateCustomerOpportunityService.ts/leadData/\";\nconst currencyDataUrls = \"/services/ts/codbex-currencies/gen/codbex-currencies/api/Currencies/CurrencyService.ts/\";\nconst opportunityUrl = \"/services/ts/codbex-lead-customer-ext/api/GenerateCustomerOpportunityService.ts/opportunityFromLead\";\n\n$http.get(leadDataUrl)\n    .then(response => {\n        $scope.leadData = response.data;\n    })\n    .catch(function (error) {\n                console.error(\"Error fetching Lead data: \", error);\n    });\n\n$http.get(currencyDataUrls)\n    .then(response => {\n        $scope.currencyData = response.data;\n    })\n    .catch(function (error) {\n                console.error(\"Error fetching Currency data: \", error);\n    });\n\n// $scope.closeDialog = () => {\n//     console.log(\"test\");\n//     $scope.showDialog = false;\n//     messageHub.closeDialogWindow(\"opportunity-generate\");\n// };",
     "form": [
         {
             "controlId": "header",
@@ -54,7 +49,7 @@
             "options": "",
             "optionLabel": "label",
             "optionValue": "value",
-            "required": true
+            "required": false
         },
         {
             "controlId": "input-select",
@@ -68,7 +63,7 @@
             "options": "",
             "optionLabel": "label",
             "optionValue": "value",
-            "required": true
+            "required": false
         },
         {
             "controlId": "input-select",
@@ -82,7 +77,7 @@
             "options": "",
             "optionLabel": "label",
             "optionValue": "value",
-            "required": true
+            "required": false
         },
         {
             "controlId": "container-hbox",

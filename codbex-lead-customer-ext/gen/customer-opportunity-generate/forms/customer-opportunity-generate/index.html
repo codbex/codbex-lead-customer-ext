@@ -11,7 +11,6 @@
 		<link type="text/css" rel="stylesheet" href="/services/js/resources-core/services/loader.js?id=ide-view-css" />
 		<theme></theme>
 		<script type="text/javascript" src="controller.js"></script>
-		<script type="text/javascript" src="/services/ts/codbex-lead-customer-ext/js/customer-opportunity-generate-module.js"></script>
 	</head>
 
 	<body class="dg-vbox">
@@ -31,20 +30,20 @@
 				</fd-select>
 			</fd-form-item>
 			<fd-form-item horizontal="false">
-				<fd-form-label dg-colon="true" dg-required="true" for="opportunity-type">Opportunity Type</fd-form-label>
-				<fd-select dg-id="opportunity-type" name="opportunity-type" label-id="opportunity-type" compact="false" ng-required="true" ng-model="model.opportunityType">
+				<fd-form-label dg-colon="true" dg-required="false" for="opportunity-type">Opportunity Type</fd-form-label>
+				<fd-select dg-id="opportunity-type" name="opportunity-type" label-id="opportunity-type" compact="false" ng-required="false" ng-model="model.opportunityType">
 					<fd-option text="{{ option.label }}" value="option.value" ng-repeat="option in  track by $index"></fd-option>
 				</fd-select>
 			</fd-form-item>
 			<fd-form-item horizontal="false">
-				<fd-form-label dg-colon="true" dg-required="true" for="opportunity-priority">Opportunity Priority</fd-form-label>
-				<fd-select dg-id="opportunity-priority" name="opportunity-priority" label-id="opportunity-priority" compact="false" ng-required="true" ng-model="model.opportunityPriority">
+				<fd-form-label dg-colon="true" dg-required="false" for="opportunity-priority">Opportunity Priority</fd-form-label>
+				<fd-select dg-id="opportunity-priority" name="opportunity-priority" label-id="opportunity-priority" compact="false" ng-required="false" ng-model="model.opportunityPriority">
 					<fd-option text="{{ option.label }}" value="option.value" ng-repeat="option in  track by $index"></fd-option>
 				</fd-select>
 			</fd-form-item>
 			<fd-form-item horizontal="false">
-				<fd-form-label dg-colon="true" dg-required="true" for="opportunity-propability">Opportunity Propability</fd-form-label>
-				<fd-select dg-id="opportunity-propability" name="opportunity-propability" label-id="opportunity-propability" compact="false" ng-required="true" ng-model="model.opportunityProbability">
+				<fd-form-label dg-colon="true" dg-required="false" for="opportunity-propability">Opportunity Propability</fd-form-label>
+				<fd-select dg-id="opportunity-propability" name="opportunity-propability" label-id="opportunity-propability" compact="false" ng-required="false" ng-model="model.opportunityProbability">
 					<fd-option text="{{ option.label }}" value="option.value" ng-repeat="option in  track by $index"></fd-option>
 				</fd-select>
 			</fd-form-item>
