@@ -1,19 +1,6 @@
 {
     "guid": "codbex-lead-customer-ext",
-    "dependencies": [
-        {
-            "guid": "codbex-opportunities",
-            "type": "git",
-            "url": "https://github.com/codbex/codbex-opportunities.git",
-            "branch": "main"
-        },
-        {
-            "guid": "codbex-partners",
-            "type": "git",
-            "url": "https://github.com/codbex/codbex-partners.git",
-            "branch": "main"
-        }
-    ],
+    "dependencies": [],
     "actions": [
         {
             "name": "Build TypeScript",
