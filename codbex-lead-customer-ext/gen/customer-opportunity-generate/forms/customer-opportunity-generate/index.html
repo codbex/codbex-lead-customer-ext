@@ -11,6 +11,7 @@
 		<link type="text/css" rel="stylesheet" href="/services/js/resources-core/services/loader.js?id=ide-view-css" />
 		<theme></theme>
 		<script type="text/javascript" src="controller.js"></script>
+		<script type="text/javascript" src="/services/ts/codbex-lead-customer-ext/js/customer-opportunity-generate-module.js"></script>
 	</head>
 
 	<body class="dg-vbox">
@@ -52,7 +53,7 @@
 				<fd-button class="dg-full-width" type="submit" dg-label="Convert" compact="false" dg-type="positive"></fd-button>
 			</div>
 			<div>
-				<fd-button class="dg-full-width" type="submit" dg-label="Cancel" compact="false" dg-type="negative"></fd-button>
+				<fd-button class="dg-full-width" type="submit" dg-label="Cancel" compact="false" dg-type="negative" ng-click="closeDialog()"></fd-button>
 			</div>
 </div>
 

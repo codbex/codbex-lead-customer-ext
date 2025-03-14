@@ -13,7 +13,11 @@ formView.controller('FormController', ['$scope', '$http', function ($scope, $htt
     $scope.model.opportunityPriority = '';
     $scope.model.opportunityProbability = '';
 
-    const params = ViewParameters.get();
+    if (window.CustomModule) {
+        const params = window.CustomModule.getParams();
+        console.log("Received Params:", params);
+    }
+    $scope.showDialog = true;
     
     const leadDataUrl = "/services/ts/codbex-lead-customer-ext/api/GenerateCustomerOpportunityService.ts/leadData/" + params.id;
     const currencyDataUrls = "/services/ts/codbex-currencies/gen/codbex-currencies/api/Currencies/CurrencyService.ts/";
@@ -35,6 +39,10 @@ formView.controller('FormController', ['$scope', '$http', function ($scope, $htt
                     console.error("Error fetching Currency data: ", error);
         });
     
-    
+    $scope.closeDialog = () => {
+        console.log("test");
+        $scope.showDialog = false;
+        messageHub.closeDialogWindow("opportunity-generate");
+    };
 
 }]);
