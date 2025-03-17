@@ -1,6 +1,7 @@
 import { LeadRepository as LeadDao } from "codbex-opportunities/gen/codbex-opportunities/dao/Lead/LeadRepository";
 import { OpportunityRepository as OpportunityDao } from "codbex-opportunities/gen/codbex-opportunities/dao/Opportunity/OpportunityRepository";
 import { CustomerRepository as CustomerDao } from "codbex-partners/gen/codbex-partners/dao/Customers/CustomerRepository";
+import { CustomerContactRepository as CustomerContactDao } from "codbex-partners/gen/codbex-partners/dao/Customers/CustomerContactRepository"
 import { OpportunityPriorityRepository as OpportunityPriorityDao } from "codbex-opportunities/gen/codbex-opportunities/dao/Settings/OpportunityPriorityRepository";
 import { OpportunityProbabilityRepository as OpportunityProbabilityDao } from "codbex-opportunities/gen/codbex-opportunities/dao/Settings/OpportunityProbabilityRepository";
 import { OpportunityTypeRepository as OpportunityTypeDao } from "codbex-opportunities/gen/codbex-opportunities/dao/Settings/OpportunityTypeRepository";
@@ -15,6 +16,7 @@ class GenerateGoodsReceiptService {
     private readonly leadDao;
     private readonly opportunityDao;
     private readonly customerDao;
+    private readonly customerContactDao;
     private readonly opportunityPriorityDao;
     private readonly opportunityProbabilityDao;
     private readonly opportunityTypeDao;
@@ -24,6 +26,7 @@ class GenerateGoodsReceiptService {
         this.leadDao = new LeadDao();
         this.opportunityDao = new OpportunityDao();
         this.customerDao = new CustomerDao();
+        this.customerContactDao = new CustomerContactDao();
         this.opportunityPriorityDao = new OpportunityPriorityDao();
         this.opportunityProbabilityDao = new OpportunityProbabilityDao();
         this.opportunityTypeDao = new OpportunityTypeDao();
@@ -59,12 +62,14 @@ class GenerateGoodsReceiptService {
     @Post("/opportunityFromLead")
     public createOpportunityFromLead(body: any) {
         try {
-            ["CompanyName", "Email", "Phone", "Country", "City"].forEach(elem => {
+            ["Name", "Email", "Phone", "Country", "City"].forEach(elem => {
                 if (!body.CustomerBody.hasOwnProperty(elem)) {
                     response.setStatus(response.BAD_REQUEST);
                     return;
                 }
             })
+
+            console.log("Customer: ", body.CustomerBody);
 
             const newCustomer = this.customerDao.create(body.CustomerBody);
 
@@ -81,15 +86,21 @@ class GenerateGoodsReceiptService {
                     }
                 })
 
-                const newCustomerContact = this.customerContactDao.create(body.CustomerContactBody);
+                let customerContactBody = body.CustomerContactBody;
+
+                customerContactBody["Customer"] = newCustomer;
+
+                console.log("Customer Contact: ", customerContactBody);
+
+                const newCustomerContact = this.customerContactDao.create(customerContactBody);
 
                 if (!newCustomerContact) {
                     response.setStatus(500);
-                    return { message: "Failed to create Customer Constact!" };
+                    return { message: "Failed to create Customer Conntact!" };
                 }
 
                 try {
-                    ["Amount", "Currency", "Lead", "Owner", "Type", "Priority", "Probability", "Status"].forEach(elem => {
+                    ["Amount", "Currency", "Lead", "Owner"].forEach(elem => {
                         if (!body.OpportunityBody.hasOwnProperty(elem)) {
                             response.setStatus(response.BAD_REQUEST);
                             return;
@@ -99,6 +110,11 @@ class GenerateGoodsReceiptService {
                     let opportunityBody = body.OpportunityBody;
 
                     opportunityBody["Customer"] = newCustomer;
+
+                    // Asigning Open status to the opportunity
+                    opportunityBody["Status"] = 1;
+
+                    console.log("Opportunity: ", opportunityBody);
 
                     const newOpportunity = this.opportunityDao.create(opportunityBody);
 

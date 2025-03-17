@@ -37,7 +37,7 @@ formView.controller('FormController', ($scope, $http, messageHub, ViewParameters
     
     $scope.convertOpportunity = () => {
         const customerBody = {
-            CompanyName: $scope.leadData.Company,
+            Name: $scope.leadData.Company,
             Email: $scope.leadData.Email,
             Phone: $scope.leadData.Phone,
             Country: $scope.leadData.Country,
@@ -91,11 +91,20 @@ formView.controller('FormController', ($scope, $http, messageHub, ViewParameters
         console.log("Request Body: ", requestBody);
     
         $http.post(opportunityUrl, requestBody)
+            .then(response => {
+                if(response.status == 200){
+                    messageHub.showAlertSuccess("Lead", "Lead converted to Opportunity successfuly!");
+                    $scope.closeDialog();
+                }
+                else{
+                    console.error("Error creating opportunity: ", response.data);
+                }
+            })
             .catch(function (error) {
-                console.error("Error fetching Lead data: ", error.data);
+                console.error("Error creating Opportunity: ", error.data);
+                messageHub.showAlertFail("Lead", "Failed to convert Lead to Opportunity!");
+                $scope.closeDialog();
             });
-    
-        $scope.closeDialog();
     }
     
     $scope.closeDialog = () => {
