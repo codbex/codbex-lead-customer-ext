@@ -34,11 +34,7 @@ class GenerateGoodsReceiptService {
     public leadData(_: any, ctx: any) {
         const leadId = ctx.pathParameters.leadId;
 
-        console.log("Lead Id: ", leadId);
-
         let lead = this.leadDao.findById(leadId);
-
-        console.log("Lead: ", lead);
 
         return lead;
     }
