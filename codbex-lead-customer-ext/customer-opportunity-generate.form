@@ -1,7 +1,7 @@
 {
     "feeds": [],
     "scripts": [],
-    "code": "const leadDataUrl = \"/services/ts/codbex-lead-customer-ext/api/GenerateCustomerOpportunityService.ts/leadData/\";\nconst currencyDataUrls = \"/services/ts/codbex-currencies/gen/codbex-currencies/api/Currencies/CurrencyService.ts/\";\nconst opportunityUrl = \"/services/ts/codbex-lead-customer-ext/api/GenerateCustomerOpportunityService.ts/opportunityFromLead\";\n\n$http.get(leadDataUrl)\n    .then(response => {\n        $scope.leadData = response.data;\n    })\n    .catch(function (error) {\n                console.error(\"Error fetching Lead data: \", error);\n    });\n\n$http.get(currencyDataUrls)\n    .then(response => {\n        $scope.currencyData = response.data;\n    })\n    .catch(function (error) {\n                console.error(\"Error fetching Currency data: \", error);\n    });\n\n// $scope.closeDialog = () => {\n//     console.log(\"test\");\n//     $scope.showDialog = false;\n//     messageHub.closeDialogWindow(\"opportunity-generate\");\n// };",
+    "code": "const params = ViewParameters.get();\n\nconst leadDataUrl = \"/services/ts/codbex-lead-customer-ext/api/GenerateCustomerOpportunityService.ts/leadData/\" + params.id;\nconst dropdownDataUrl = \"/services/ts/codbex-lead-customer-ext/api/GenerateCustomerOpportunityService.ts/dropdownData\";\nconst opportunityUrl = \"/services/ts/codbex-lead-customer-ext/api/GenerateCustomerOpportunityService.ts/opportunityFromLead\";\n\n$http.get(leadDataUrl)\n    .then(response => {\n        $scope.leadData = response.data;\n    })\n    .catch(function (error) {\n        console.error(\"Error fetching Lead data: \", error.data);\n    });\n\n$http.get(dropdownDataUrl)\n    .then(response => {\n        $scope.dropdownData = response.data;\n    })\n    .catch(function (error) {\n        console.error(\"Error fetching Dropdown data: \", error.data);\n    });\n\n$scope.convertOpportunity = () => {\n    const customerBody = {\n        CompanyName: $scope.leadData.Company,\n        Email: $scope.leadData.Email,\n        Phone: $scope.leadData.Phone,\n        Country: $scope.leadData.Country,\n        Citry: $scope.leadData.City\n    }\n\n    console.log(\"Customer body: \", customerBody);\n\n    const customerContactBody = {\n        Name: $scope.leadData.Name,\n        Designation: $scope.leadData.Designation,\n        Email: $scope.leadData.Email,\n        Phone: $scope.leadData.Phone\n    }\n\n    console.log(\"Customer COntact Bodu: \", customerContactBody);\n\n    let opportunityBody = {\n        Amount: $scope.model.amount,\n        Lead: $scope.leadData.Id,\n        Owner: $scope.leadData.Owner,\n        Currency: $scope.model.amount\n    }\n\n    console.log(\"Opportunity Body: \", opportunityBody);\n\n    if($scope.model.type && $scope.model.type != ''){\n        opportunityBody[\"Type\"] = $scope.model.type;\n    }\n\n    console.log(\"Opportunity Body after type: \", opportunityBody);\n\n    if($scope.model.priority && $scope.model.priority != ''){\n        opportunityBody[\"Priority\"] = $scope.model.priority;\n    }\n\n    console.log(\"Opportunity Body after priority: \", opportunityBody);\n\n    if($scope.model.probability && $scope.model.probability != ''){\n        opportunityBody[\"Probability\"] = $scope.model.probability;\n    }\n\n    console.log(\"Opportunity Body after probability: \", opportunityBody);\n\n    const requestBody = {\n        CustomerBody: customerBody,\n        CustomerContactBody: customerContactBody,\n        OpportunityBody: opportunityBody\n    }\n\n    console.log(\"Request Body: \", requestBody);\n\n    $http.post(opportunityUrl, requestBody)\n        .catch(function (error) {\n            console.error(\"Error fetching Lead data: \", error.data);\n        });\n\n    $scope.closeDialog();\n}\n\n$scope.closeDialog = () => {\n    $scope.showDialog = false;\n    messageHub.closeDialogWindow(\"opportunity-generate\");\n};",
     "form": [
         {
             "controlId": "header",
@@ -32,7 +32,7 @@
             "isCompact": false,
             "staticData": false,
             "model": "currency",
-            "options": "",
+            "options": "dropdownData.Currencies",
             "optionLabel": "Code",
             "optionValue": "Id",
             "required": true
@@ -46,9 +46,9 @@
             "isCompact": false,
             "staticData": false,
             "model": "type",
-            "options": "",
-            "optionLabel": "label",
-            "optionValue": "value",
+            "options": "dropdownData.OpportunityTypes",
+            "optionLabel": "Name",
+            "optionValue": "Id",
             "required": false
         },
         {
@@ -59,10 +59,10 @@
             "horizontal": false,
             "isCompact": false,
             "staticData": false,
-            "model": "Priority",
-            "options": "",
-            "optionLabel": "label",
-            "optionValue": "value",
+            "model": "priority",
+            "options": "dropdownData.OpportunityPriorities",
+            "optionLabel": "Name",
+            "optionValue": "Id",
             "required": false
         },
         {
@@ -73,11 +73,16 @@
             "horizontal": false,
             "isCompact": false,
             "staticData": false,
-            "model": "Probability",
-            "options": "",
-            "optionLabel": "label",
-            "optionValue": "value",
+            "model": "probability",
+            "options": "dropdownData.OpportunityProbabilities",
+            "optionLabel": "Name",
+            "optionValue": "Id",
             "required": false
+        },
+        {
+            "controlId": "container-vbox",
+            "groupId": "fb-containers",
+            "children": []
         },
         {
             "controlId": "container-hbox",
@@ -91,7 +96,7 @@
                     "sizeToText": false,
                     "isSubmit": true,
                     "isCompact": false,
-                    "callback": ""
+                    "callback": "convertOpportunity()"
                 },
                 {
                     "controlId": "button",
@@ -99,7 +104,7 @@
                     "label": "Cancel",
                     "type": "negative",
                     "sizeToText": false,
-                    "isSubmit": true,
+                    "isSubmit": false,
                     "isCompact": false,
                     "callback": "closeDialog()"
                 }

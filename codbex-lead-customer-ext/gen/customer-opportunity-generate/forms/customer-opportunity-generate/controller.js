@@ -1,6 +1,6 @@
 const formView = angular.module('forms', ['ideUI', 'ideView']);
 
-formView.controller('FormController', ['$scope', '$http', function ($scope, $http) {
+formView.controller('FormController', ($scope, $http, messageHub, ViewParameters) => {
 
     $scope.forms = {
         form: {}
@@ -10,11 +10,13 @@ formView.controller('FormController', ['$scope', '$http', function ($scope, $htt
     $scope.model.amount = 0;
     $scope.model.currency = '';
     $scope.model.type = '';
-    $scope.model.Priority = '';
-    $scope.model.Probability = '';
+    $scope.model.priority = '';
+    $scope.model.probability = '';
 
-    const leadDataUrl = "/services/ts/codbex-lead-customer-ext/api/GenerateCustomerOpportunityService.ts/leadData/";
-    const currencyDataUrls = "/services/ts/codbex-currencies/gen/codbex-currencies/api/Currencies/CurrencyService.ts/";
+    const params = ViewParameters.get();
+    
+    const leadDataUrl = "/services/ts/codbex-lead-customer-ext/api/GenerateCustomerOpportunityService.ts/leadData/" + params.id;
+    const dropdownDataUrl = "/services/ts/codbex-lead-customer-ext/api/GenerateCustomerOpportunityService.ts/dropdownData";
     const opportunityUrl = "/services/ts/codbex-lead-customer-ext/api/GenerateCustomerOpportunityService.ts/opportunityFromLead";
     
     $http.get(leadDataUrl)
@@ -22,21 +24,83 @@ formView.controller('FormController', ['$scope', '$http', function ($scope, $htt
             $scope.leadData = response.data;
         })
         .catch(function (error) {
-                    console.error("Error fetching Lead data: ", error);
+            console.error("Error fetching Lead data: ", error.data);
         });
     
-    $http.get(currencyDataUrls)
+    $http.get(dropdownDataUrl)
         .then(response => {
-            $scope.currencyData = response.data;
+            $scope.dropdownData = response.data;
         })
         .catch(function (error) {
-                    console.error("Error fetching Currency data: ", error);
+            console.error("Error fetching Dropdown data: ", error.data);
         });
     
-    // $scope.closeDialog = () => {
-    //     console.log("test");
-    //     $scope.showDialog = false;
-    //     messageHub.closeDialogWindow("opportunity-generate");
-    // };
+    $scope.convertOpportunity = () => {
+        const customerBody = {
+            CompanyName: $scope.leadData.Company,
+            Email: $scope.leadData.Email,
+            Phone: $scope.leadData.Phone,
+            Country: $scope.leadData.Country,
+            Citry: $scope.leadData.City
+        }
+    
+        console.log("Customer body: ", customerBody);
+    
+        const customerContactBody = {
+            Name: $scope.leadData.Name,
+            Designation: $scope.leadData.Designation,
+            Email: $scope.leadData.Email,
+            Phone: $scope.leadData.Phone
+        }
+    
+        console.log("Customer COntact Bodu: ", customerContactBody);
+    
+        let opportunityBody = {
+            Amount: $scope.model.amount,
+            Lead: $scope.leadData.Id,
+            Owner: $scope.leadData.Owner,
+            Currency: $scope.model.amount
+        }
+    
+        console.log("Opportunity Body: ", opportunityBody);
+    
+        if($scope.model.type && $scope.model.type != ''){
+            opportunityBody["Type"] = $scope.model.type;
+        }
+    
+        console.log("Opportunity Body after type: ", opportunityBody);
+    
+        if($scope.model.priority && $scope.model.priority != ''){
+            opportunityBody["Priority"] = $scope.model.priority;
+        }
+    
+        console.log("Opportunity Body after priority: ", opportunityBody);
+    
+        if($scope.model.probability && $scope.model.probability != ''){
+            opportunityBody["Probability"] = $scope.model.probability;
+        }
+    
+        console.log("Opportunity Body after probability: ", opportunityBody);
+    
+        const requestBody = {
+            CustomerBody: customerBody,
+            CustomerContactBody: customerContactBody,
+            OpportunityBody: opportunityBody
+        }
+    
+        console.log("Request Body: ", requestBody);
+    
+        $http.post(opportunityUrl, requestBody)
+            .catch(function (error) {
+                console.error("Error fetching Lead data: ", error.data);
+            });
+    
+        $scope.closeDialog();
+    }
+    
+    $scope.closeDialog = () => {
+        $scope.showDialog = false;
+        messageHub.closeDialogWindow("opportunity-generate");
+    };
 
-}]);
+});
