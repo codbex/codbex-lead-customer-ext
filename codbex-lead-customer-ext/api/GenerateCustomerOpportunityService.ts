@@ -69,8 +69,6 @@ class GenerateGoodsReceiptService {
                 }
             })
 
-            console.log("Customer: ", body.CustomerBody);
-
             const newCustomer = this.customerDao.create(body.CustomerBody);
 
             if (!newCustomer) {
@@ -89,8 +87,6 @@ class GenerateGoodsReceiptService {
                 let customerContactBody = body.CustomerContactBody;
 
                 customerContactBody["Customer"] = newCustomer;
-
-                console.log("Customer Contact: ", customerContactBody);
 
                 const newCustomerContact = this.customerContactDao.create(customerContactBody);
 
@@ -114,8 +110,6 @@ class GenerateGoodsReceiptService {
                     // Asigning Open status to the opportunity
                     opportunityBody["Status"] = 1;
 
-                    console.log("Opportunity: ", opportunityBody);
-
                     const newOpportunity = this.opportunityDao.create(opportunityBody);
 
                     if (!newOpportunity) {
@@ -123,11 +117,15 @@ class GenerateGoodsReceiptService {
                         return { message: "Failed to create Opportunity!" };
                     }
 
+                    let lead = this.leadDao.findById(opportunityBody.Lead);
+
+                    // Updating Lead status to Opportunity
+                    lead.Status = 5;
+
+                    this.leadDao.update(lead);
+
                     response.setStatus(response.CREATED);
-                    return {
-                        CustomerId: newCustomer,
-                        OpportunityId: newOpportunity
-                    };
+                    return { message: "Lead converted successfully to Opportunity!" };
 
                 } catch (e: any) {
                     response.setStatus(response.BAD_REQUEST);

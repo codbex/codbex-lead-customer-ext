@@ -41,10 +41,9 @@ formView.controller('FormController', ($scope, $http, messageHub, ViewParameters
             Email: $scope.leadData.Email,
             Phone: $scope.leadData.Phone,
             Country: $scope.leadData.Country,
-            Citry: $scope.leadData.City
+            City: $scope.leadData.City,
+            Address: ""
         }
-    
-        console.log("Customer body: ", customerBody);
     
         const customerContactBody = {
             Name: $scope.leadData.Name,
@@ -53,34 +52,24 @@ formView.controller('FormController', ($scope, $http, messageHub, ViewParameters
             Phone: $scope.leadData.Phone
         }
     
-        console.log("Customer COntact Bodu: ", customerContactBody);
-    
         let opportunityBody = {
             Amount: $scope.model.amount,
             Lead: $scope.leadData.Id,
             Owner: $scope.leadData.Owner,
-            Currency: $scope.model.amount
+            Currency: $scope.model.currency
         }
-    
-        console.log("Opportunity Body: ", opportunityBody);
     
         if($scope.model.type && $scope.model.type != ''){
             opportunityBody["Type"] = $scope.model.type;
         }
     
-        console.log("Opportunity Body after type: ", opportunityBody);
-    
         if($scope.model.priority && $scope.model.priority != ''){
             opportunityBody["Priority"] = $scope.model.priority;
         }
     
-        console.log("Opportunity Body after priority: ", opportunityBody);
-    
         if($scope.model.probability && $scope.model.probability != ''){
             opportunityBody["Probability"] = $scope.model.probability;
         }
-    
-        console.log("Opportunity Body after probability: ", opportunityBody);
     
         const requestBody = {
             CustomerBody: customerBody,
@@ -88,11 +77,9 @@ formView.controller('FormController', ($scope, $http, messageHub, ViewParameters
             OpportunityBody: opportunityBody
         }
     
-        console.log("Request Body: ", requestBody);
-    
         $http.post(opportunityUrl, requestBody)
             .then(response => {
-                if(response.status == 200){
+                if(response.status == 201){
                     messageHub.showAlertSuccess("Lead", "Lead converted to Opportunity successfuly!");
                     $scope.closeDialog();
                 }
@@ -102,7 +89,6 @@ formView.controller('FormController', ($scope, $http, messageHub, ViewParameters
             })
             .catch(function (error) {
                 console.error("Error creating Opportunity: ", error.data);
-                messageHub.showAlertFail("Lead", "Failed to convert Lead to Opportunity!");
                 $scope.closeDialog();
             });
     }
