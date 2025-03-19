@@ -15,17 +15,17 @@ jobs:
     uses: codbex/codbex-infra/.github/workflows/module-release.yaml@main
     with:
       packages: codbex-lead-customer-ext
-      packages-build: codbex-lead-custome-ext
+      packages-build: codbex-lead-customer-ext
       release-version: ${{ inputs.release-version }}
       release-content: |
-        ## codbex-lead-custome-ext - ${{ inputs.release-version }}
+        ## codbex-lead-customer-ext - ${{ inputs.release-version }}
   
         Lead Customer/Opportunity Extension - Module
   
         ## Installation
   
         ```
-        npm install @codbex/codbex-lead-custome-ext@${{ inputs.release-version }}
+        npm install @codbex/codbex-lead-customer-ext@${{ inputs.release-version }}
         ```
   
         ## Access points:
