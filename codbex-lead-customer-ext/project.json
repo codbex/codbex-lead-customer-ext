@@ -1,25 +1,4 @@
 {
     "guid": "codbex-lead-customer-ext",
-    "repository": {
-        "type": "git",
-        "branch": "main",
-        "url": "https://github.com/codbex/codbex-lead-customer-ext.git"
-    },
-    "dependencies": [],
-    "actions": [
-        {
-            "name": "Build TypeScript",
-            "commands": [
-                {
-                    "os": "unix",
-                    "command": "tsc"
-                },
-                {
-                    "os": "windows",
-                    "command": "cmd /c tsc"
-                }
-            ],
-            "registry": "true"
-        }
-    ]
+    "actions": []
 }
